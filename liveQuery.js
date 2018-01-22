@@ -43,7 +43,7 @@ class LiveQuery{
             }
           
 
-            console.log(this.getConnectionString());
+       //     console.log(this.getConnectionString());
             this.liveDb=new LivePg(this.getConnectionString(), value||"ramu");
 
             process.on('SIGINT', ()=> {

@@ -58,14 +58,12 @@ class HandleSocket {
 
             socket.selectMap = new Map();
 
-           // socket.token='Bearer d79e6e8a76f6363a6f200969b55e6f550d3c593c60f16214';
-
             socket.on('querydata', (query, fn) => {
 
                 queryData(query,socket.token)
                     .then(response => {
 
-                        console.log(response);
+                      //  console.log(response);
 
                        isFunction(fn)
                         fn({
@@ -81,7 +79,7 @@ class HandleSocket {
                                         'error': err.response.data
                                     });
 
-                    console.log(err);
+               //     console.log(err);
                         
                     });
 
@@ -104,14 +102,18 @@ class HandleSocket {
                 //   var  includediff = what.diff?true:false,
                 //     includedata = what.data?true:false;
 
-                console.log('key:  ' + key);
+               // console.log('key:  ' + key);
+
+               if(socket.selectMap.get(key)){
+                   socket.selectMap.get(key).stop();
+               }
 
                 queryData(data, socket.token)
 
                     .then((result) => {
 
-                        console.log('permission granted')
-                         console.log( JSON.stringify(result.data));
+                     //   console.log('permission granted')
+                      //   console.log( JSON.stringify(result.data));
  
                         var sql = convertToString(data);
 
@@ -164,7 +166,8 @@ class HandleSocket {
 
                 if(lq){
                         lq.stop();
-                        lq=null;
+                        lq=undefined;
+                        socket.selectMap.push(key,undefined);
 
                        isFunction(fn)
                         fn(key, {
@@ -186,10 +189,7 @@ class HandleSocket {
 
 
 
-    dataQuery(body, token) {
-
-
-    }
+   
 
 }
 
@@ -199,8 +199,8 @@ function convertToString(jsonQuery) {
 
     if( !jsonQuery || !jsonQuery.args || !jsonQuery.args.table || !jsonQuery.args.columns ) return;
 
-    console.log("json query");
-    console.log(jsonQuery);
+    // console.log("json query");
+    // console.log(jsonQuery);
     var obj = {}
     if (jsonQuery.type === 'select') {
         obj.type = jsonQuery.type;
@@ -233,8 +233,8 @@ function convertToString(jsonQuery) {
         }
     }
     else return;
-    console.log("sql: ");
-    console.log(sql.values);
+    // console.log("sql: ");
+    // console.log(sql.values);
 
 
     return sql;
@@ -243,31 +243,4 @@ function convertToString(jsonQuery) {
 
 module.exports = HandleSocket;
 
-console.log(convertToString(
-    {
-        "type": "select",
-        "args": {
-            "table": "article",
-            "columns": [
-                "author_id",
-                "content"
-            ],
-            "where": {
-                "$eq": {
-                    '$author_id':'ramu'
-                }
-            }
-        }
-    }
-));
 
-// queryData(JSON.stringify({
-//     "type": "select",
-//     "args": {
-//         "table": "article",
-//         "columns": [
-//             "*"
-//         ]
-//     }
-// })
-// ,'Bearer d79e6e8a76f6363a6f200969b55e6f550d3c593c60f16214');
