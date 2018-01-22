@@ -2,9 +2,7 @@
 
 var socketIo = require('socket.io');
 var LiveQuery = require('./liveQuery');
-var fetchAction = require('node-fetch');
 var builder = require('mongo-sql');
-var request = require('request');
 
 var axios = require('axios');
 
