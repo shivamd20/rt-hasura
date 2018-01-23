@@ -44,7 +44,7 @@ class LiveQuery{
           
 
        //     console.log(this.getConnectionString());
-            this.liveDb=new LivePg(this.getConnectionString(), value||"ramu");
+            this.liveDb=new LivePg(this.getConnectionString(), "ramu");
 
             process.on('SIGINT', ()=> {
                 this.liveDb.cleanup(process.exit);

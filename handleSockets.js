@@ -153,8 +153,7 @@ class HandleSocket {
                         });
 
                     });
-
-
+                    
             });
 
 
