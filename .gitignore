@@ -1,5 +1,4 @@
 node_modules
 secrets.txt
-client/
 server.js
 env.js
