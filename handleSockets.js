@@ -20,8 +20,6 @@ async function query(options) {
 }
 
 
-
-
 class HandleSocket {
 
     queryData(q, token) {
@@ -37,6 +35,21 @@ class HandleSocket {
         }
 
         return query(options);
+    }
+
+    queryAuth(q, path, token){
+
+        var options = {
+            url: 'https://auth.' + this.clusterName + '.hasura-app.io/v1'+path,
+            data: q,
+            method: 'post',
+            json: true,
+            headers: {
+                Authorization: token || null,
+                "Content-Type": "application/json",
+            }
+        }
+
     }
 
     constructor(server, config) {
@@ -55,6 +68,34 @@ class HandleSocket {
         this.onConnection = (socket) => {
 
             socket.selectMap = new Map();
+
+            socket.on('queryauth', (query,path, fn) => {
+
+                this.queryAuth(query,path, socket.token)
+                    .then(response => {
+
+                        //  console.log(response);
+
+                        isFunction(fn)
+                        fn({
+                            "status": 'ok',
+                            'data': response.data
+                        });
+                    })
+                    .catch((err) => {
+                        isFunction(fn)
+                        fn(
+                            {
+                                'status': 'error',
+                                'error': err.response.data
+                            });
+
+                        //     console.log(err);
+
+                    });
+
+
+            });
 
             socket.on('querydata', (query, fn) => {
 
