@@ -30,7 +30,7 @@ class LiveQuery{
             +'@'+this.dbcred.hostname+':'+this.dbcred.port+'/'+this.dbcred.dbname+'?searchpath=public';
     }
 
-    constructor(config,value){
+    constructor(config){
 
 
        
