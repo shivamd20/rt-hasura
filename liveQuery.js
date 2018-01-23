@@ -32,8 +32,6 @@ class LiveQuery{
 
     constructor(config){
 
-
-       
             this.dbcred={
               username:config.POSTGRES_USERNAME || process.env.POSTGRES_USERNAME  ,
               password:config.POSTGRES_PASSWORD || process.env.POSTGRES_PASSWORD ,
