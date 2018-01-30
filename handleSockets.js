@@ -86,7 +86,7 @@ class HandleSocket {
                         fn(
                             {
                                 'status': 'error',
-                                'error': err.toString()
+                                'error': err.response.toString()
                             });
 
                         //     console.log(err);
