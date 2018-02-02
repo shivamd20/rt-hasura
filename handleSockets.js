@@ -79,14 +79,20 @@ class HandleSocket {
                         isFunction(fn)
                         fn({
                             "status": 'ok',
-                            'data': response.data
+                            'data': response.data,
+                            "headers" : response.headers,
+                            "statusCode" : response.status,
+                            statusText : response.statusText
                         });
                     }).catch((err) => {
                         isFunction(fn)
                         fn(
                             {
                                 'status': 'error',
-                                'error': err.response.toString()
+                                'error': err.response ? err.response.data : err.toString(),
+                                "headers" : err.response ? err.response.headers : null,
+                                "statusCode" :  err.response ? err.response.status : null,
+                                statusText : err.response ? err.response.statusText : null
                             });
 
                         //     console.log(err);
@@ -135,7 +141,10 @@ class HandleSocket {
                         isFunction(fn)
                         fn({
                             "status": 'ok',
-                            'data': response.data
+                            'data': response.data,
+                            "headers" : response.headers,
+                            "statusCode" : response.status,
+                            statusText : response.statusText
                         });
                     })
                     .catch((err) => {
@@ -143,7 +152,10 @@ class HandleSocket {
                         fn(
                             {
                                 'status': 'error',
-                                'error': err.response.data
+                                'error': err.response.data,
+                                "headers" : err.response ? err.response.headers : null,
+                                "statusCode" :  err.response ? err.response.status : null,
+                                statusText : err.response ? err.response.statusText : null
                             });
 
                         //     console.log(err);
