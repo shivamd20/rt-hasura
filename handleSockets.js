@@ -11,6 +11,7 @@ var liveQuery = new LiveQuery(process.argv, "first");
 
 var isFunction = function (obj) {
     return !!(obj && obj.constructor && obj.call && obj.apply);
+    
 };
 
 async function query(options) {
